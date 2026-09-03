@@ -36,7 +36,7 @@ Key quality metrics: provenance completeness 88.2%, schema validity 100%, single
 
 The site is a dependency-free static build (HTML/CSS/JS) with an EN / 中文 switch, light and dark themes, charts computed from the released CSVs, an interactive CMS heatmap, a layered, expand-on-demand graph explorer with a classical Chinese visual style, and a node browser that inspects every edge with its TEC score and evidence tier.
 
-**Deploy on GitHub Pages:** *Settings → Pages → Build and deployment → Source: GitHub Actions*. The workflow in `.github/workflows/pages.yml` deploys on every push to `main`. Alternatively choose *Deploy from a branch* (`main`, `/ (root)`); the `.nojekyll` file is already in place.
+**Deploy on GitHub Pages:** *Settings → Pages → Build and deployment → Source: GitHub Actions*. The workflow in `.github/workflows/jekyll-gh-pages.yml` deploys on every push to `main`. Every page is plain static HTML with no front matter, so Jekyll copies it through unchanged.
 
 **Run locally:**
 
@@ -70,7 +70,7 @@ TCM-Bone-KG 从横跨十个朝代的 **516 部中医古籍** 中提炼出 **1,69
 
 本站为无外部依赖的静态站点（HTML/CSS/JS），支持中英文切换、明暗主题，图表直接由发布的 CSV 计算生成，包含交互式 CMS 热图、按本体分层、按需展开的古典风格图谱浏览器，以及可逐条查看 TEC 评分与证据等级的节点检索页。
 
-**部署到 GitHub Pages：** *Settings → Pages → Build and deployment → Source: GitHub Actions*。`.github/workflows/pages.yml` 会在每次推送到 `main` 时自动部署。也可选择 *Deploy from a branch*（`main`，`/ (root)`），仓库已包含 `.nojekyll`。
+**部署到 GitHub Pages：** *Settings → Pages → Build and deployment → Source: GitHub Actions*。`.github/workflows/jekyll-gh-pages.yml` 会在每次推送到 `main` 时自动部署。本站全部页面为不含 front matter 的静态 HTML，Jekyll 会原样输出。
 
 **本地运行：**
 
