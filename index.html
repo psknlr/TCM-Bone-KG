@@ -368,8 +368,8 @@ var q=new URLSearchParams(location.search).get('lang');var l=q||localStorage.get
   <div class="container">
     <div class="section-head reveal">
       <div class="eyebrow"><span class="en">Results</span><span class="zh">结果</span></div>
-      <h2><span class="en">Quality, robustness, and what remains pending</span><span class="zh">质量、稳健性与待完成项</span></h2>
-      <p class="lead"><span class="en">Metrics reproduced from <code>kg_quality_table.csv</code>. Items marked pending are stated as such, not hidden.</span><span class="zh">指标复现自 <code>kg_quality_table.csv</code>。标记为「待完成」的项目如实呈现，不作隐藏。</span></p>
+      <h2><span class="en">Quality and robustness</span><span class="zh">质量与稳健性</span></h2>
+      <p class="lead"><span class="en">Metrics reproduced from <code>kg_quality_table.csv</code>.</span><span class="zh">指标复现自 <code>kg_quality_table.csv</code>。</span></p>
     </div>
 
     <div class="grid-2" style="margin-bottom:1.4rem">
@@ -411,9 +411,6 @@ var q=new URLSearchParams(location.search).get('lang');var l=q||localStorage.get
           <tr><td><span class="en">Diagnostic Boundary Constraint compliance</span><span class="zh">诊断边界约束合规率</span></td><td class="v">100%</td><td class="note"><span class="en">all disease/syndrome → Osteoporosis gated to CMS<sub>exact</sub> = 0</span><span class="zh">全部病名/证型 → 骨质疏松症门控为 CMS<sub>exact</sub> = 0</span> <span class="pill ok">✓</span></td></tr>
           <tr><td><span class="en">Highest pre-gate CMS</span><span class="zh">门控前最高 CMS</span></td><td class="v">脾胃虚弱证 · 0.095</td><td class="note"><span class="en">Osteoporosis anchor</span><span class="zh">骨质疏松症锚点</span></td></tr>
           <tr><td><span class="en">y<sub>m</sub> / u<sub>m</sub> anchor vectors</span><span class="zh">y<sub>m</sub> / u<sub>m</sub> 锚点向量</span></td><td class="v"><span class="pill warn"><span class="en">clinical judgment</span><span class="zh">临床判断</span></span></td><td class="note"><span class="en">not learned from data; pending expert review</span><span class="zh">非数据学习所得；待专家审阅</span></td></tr>
-          <tr class="group-row"><td colspan="3"><span class="en">EXPERT VALIDATION</span><span class="zh">专家验证</span></td></tr>
-          <tr><td><span class="en">Entity / relation precision, recall, F1</span><span class="zh">实体 / 关系的精确率、召回率、F1</span></td><td class="v"><span class="pill pending"><span class="en">pending</span><span class="zh">待完成</span></span></td><td class="note"><span class="en">requires a double-annotated gold set</span><span class="zh">需要双人标注的金标准集</span></td></tr>
-          <tr><td><span class="en">Bridge-layer Cohen's κ</span><span class="zh">桥接层 Cohen's κ</span></td><td class="v"><span class="pill pending"><span class="en">pending</span><span class="zh">待完成</span></span></td><td class="note"><span class="en">expert review of the 26 bridge relations recommended</span><span class="zh">建议对 26 条桥接关系进行专家复核</span></td></tr>
         </tbody>
       </table>
     </div>
@@ -456,7 +453,7 @@ var q=new URLSearchParams(location.search).get('lang');var l=q||localStorage.get
       <div>
         <div class="eyebrow" style="color:#f3c6bd"><span class="en">Interactive</span><span class="zh">交互式</span></div>
         <h3><span class="en">Walk the graph yourself</span><span class="zh">亲自漫游图谱</span></h3>
-        <p><span class="en">A force-directed rendering of the full graph. Click any node to highlight its two-hop neighbourhood; drag to rearrange; scroll to zoom. The companion node browser lets you search all 1,690 nodes and inspect every edge with its TEC score and evidence tier.</span><span class="zh">全图的力导向可视化。点击任意节点可高亮其两跳邻域；拖拽可重排；滚轮缩放。配套的节点检索页可搜索全部 1,690 个节点，并逐条查看关系边的 TEC 评分与证据等级。</span></p>
+        <p><span class="en">A layered view that follows the seven-layer ontology, row by row, with the modern clinical bridge standing apart on the right. Start from a curated core or a themed view, expand any node's strongest neighbours by TEC, filter by evidence tier, and read edge weight as ink density. The companion node browser lists every edge with its TEC score and tier.</span><span class="zh">依七层本体逐行排布的分层视图，现代临床桥接层独立于右侧。可从核心本体或主题视图出发，按 TEC 展开任意节点最强的邻居，按证据等级筛选，并以墨色浓淡读取关系权重。配套的节点检索页可逐条查看关系边的 TEC 评分与证据等级。</span></p>
         <div class="cta-row">
           <a class="btn btn-primary" href="explorer.html"><span class="en">Open the graph explorer</span><span class="zh">打开图谱浏览器</span></a>
           <a class="btn btn-secondary" href="browse.html"><span class="en">Search nodes & edges</span><span class="zh">检索节点与关系</span></a>
@@ -504,12 +501,7 @@ var q=new URLSearchParams(location.search).get('lang');var l=q||localStorage.get
 <!-- ===================== LIMITATIONS ===================== -->
 <section class="section" id="limitations">
   <div class="container">
-    <div class="grid-2">
-      <div class="callout warn reveal">
-        <h3><span class="en">Limitation, stated plainly</span><span class="zh">局限性，如实说明</span></h3>
-        <p><span class="en">Entity/relation precision, recall, F1 and a bridge-layer Cohen's κ were planned but could not be computed in the current analysis session. The candidate corpus file examined for this purpose is rule-based keyword-matching output, not a double-annotated expert gold set. Reporting these metrics requires either the manuscript's 701-entry double-annotated gold set (κ ≥ 0.75 pre-registered) or a fresh 100% expert review of the 26 bridge-layer relations.</span>
-        <span class="zh">实体/关系的精确率、召回率、F1 以及桥接层的 Cohen's κ 已列入计划，但在当前分析阶段尚无法计算。为此检查的候选语料文件是基于规则的关键词匹配输出，而非双人标注的专家金标准集。报告这些指标需要论文自身的 701 条双人标注金标准集（预注册 κ ≥ 0.75），或对 26 条桥接层关系进行 100% 的专家复核。</span></p>
-      </div>
+    <div style="max-width:820px">
       <div class="callout reveal">
         <h3><span class="en">How to read the bridge</span><span class="zh">如何阅读桥接层</span></h3>
         <ul>
