@@ -1,0 +1,13 @@
+,老年后,围绝经期,胎产哺乳,情志异常
+Osteoporosis,0.4,0.4,0.2,0.0
+Age-related osteoporosis context,1.0,0.0,0.0,0.0
+Postmenopausal osteoporosis context,0.3,1.0,0.0,0.0
+Pregnancy/lactation-associated osteoporosis context,0.0,0.0,1.0,0.0
+Fragility fracture,0.0,0.0,0.0,0.0
+Vertebral fragility fracture,0.0,0.0,0.0,0.0
+Functional impairment,0.0,0.0,0.0,0.0
+Gait instability / fall risk,0.0,0.0,0.0,0.0
+DXA/BMD assessment,0.0,0.0,0.0,0.0
+T-score,0.0,0.0,0.0,0.0
+Fracture-risk assessment,0.0,0.0,0.0,0.0
+Vertebral fracture assessment,0.0,0.0,0.0,0.0

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-en="Graph explorer · TCM-Bone-KG" data-zh="图谱浏览器 · TCM-Bone-KG">Graph explorer · TCM-Bone-KG</title>
+<meta name="description" content="Interactive force-directed explorer of the TCM-Bone-KG knowledge graph. 交互式图谱浏览器。">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>(function(){try{var t=localStorage.getItem('tbk-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);var q=new URLSearchParams(location.search).get('lang');var l=q||localStorage.getItem('tbk-lang')||((navigator.language||'').toLowerCase().indexOf('zh')===0?'zh':'en');document.documentElement.setAttribute('lang',l==='zh'?'zh':'en');}catch(e){}})();</script>
+<style>
+  body { background-image: none; }
+  .explorer-wrap { position: relative; }
+  .explorer-note { position: absolute; left: 1rem; bottom: 1rem; z-index: 5; background: color-mix(in srgb, var(--card) 92%, transparent); border: 1px solid var(--line); border-radius: 12px; padding: .7rem 1rem; font-size: .8rem; color: var(--ink-2); max-width: 340px; box-shadow: var(--shadow); backdrop-filter: blur(8px); }
+  .explorer-note b { color: var(--ink); }
+  .explorer-note button { float: right; border: 0; background: transparent; color: var(--ink-3); margin: -.2rem -.4rem 0 .6rem; font-size: 1rem; }
+  .explorer-bar { border-bottom: 1px solid var(--line); background: var(--paper-2); }
+  .explorer-bar .container { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.4rem; }
+  .explorer-bar a.btn { padding: .4rem .9rem; font-size: .82rem; }
+  .explorer-frame { height: calc(100vh - 64px - 46px); }
+</style>
+</head>
+<body>
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">骨</span><span>TCM-Bone-KG<small><span class="en">Graph explorer</span><span class="zh">图谱浏览器</span></small></span></a>
+    <nav class="nav-links" id="nav-links" aria-label="Primary">
+      <a href="index.html"><span class="en">Home</span><span class="zh">首页</span></a>
+      <a href="index.html#methods"><span class="en">Methods</span><span class="zh">方法</span></a>
+      <a href="index.html#results"><span class="en">Results</span><span class="zh">结果</span></a>
+      <a href="explorer.html" class="active"><span class="en">Explorer</span><span class="zh">图谱浏览</span></a>
+      <a href="browse.html"><span class="en">Nodes</span><span class="zh">节点检索</span></a>
+      <a href="index.html#data"><span class="en">Data</span><span class="zh">数据下载</span></a>
+    </nav>
+    <div class="nav-tools">
+      <div class="lang-switch" role="group" aria-label="Language / 语言">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+      </div>
+      <button type="button" class="icon-btn theme-btn" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
+      <button type="button" class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<div class="explorer-bar">
+  <div class="container" style="padding:.55rem 0">
+    <span style="font-weight:600;color:var(--ink)"><span class="en">Full graph · 1,690 nodes · 10,434 edges</span><span class="zh">全图 · 1,690 节点 · 10,434 边</span></span>
+    <span class="legend">
+      <span><span class="en">Click a node to highlight its 2-hop neighbourhood · drag to move · scroll to zoom</span><span class="zh">点击节点高亮两跳邻域 · 拖拽移动 · 滚轮缩放</span></span>
+    </span>
+    <span style="margin-left:auto;display:flex;gap:.5rem">
+      <a class="btn btn-secondary" href="browse.html"><span class="en">Node browser</span><span class="zh">节点检索</span></a>
+      <a class="btn btn-secondary" href="data/kg_interactive_v2.html" target="_blank" rel="noopener"><span class="en">Open full-screen ↗</span><span class="zh">全屏打开 ↗</span></a>
+    </span>
+  </div>
+</div>
+
+<div class="explorer-wrap">
+  <iframe class="explorer-frame" src="data/kg_interactive_v2.html" title="TCM-Bone-KG interactive network" loading="eager"></iframe>
+  <div class="explorer-note" id="explorer-note">
+    <button type="button" aria-label="Dismiss" onclick="document.getElementById('explorer-note').remove()">×</button>
+    <b><span class="en">Rendering the whole graph</span><span class="zh">正在渲染全图</span></b><br>
+    <span class="en">The physics layout of 10,000+ edges takes a few seconds to settle on first load. Node colours follow entity type; the central hub is 骨痿 (gu wei).</span>
+    <span class="zh">首次加载时，一万余条边的物理布局需要数秒才能稳定。节点颜色对应实体类型；中心枢纽为骨痿。</span>
+  </div>
+</div>
+
+<script src="assets/js/site.js"></script>
+</body>
+</html>
