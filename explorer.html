@@ -4,26 +4,16 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title data-en="Graph explorer · TCM-Bone-KG" data-zh="图谱浏览器 · TCM-Bone-KG">Graph explorer · TCM-Bone-KG</title>
-<meta name="description" content="Interactive force-directed explorer of the TCM-Bone-KG knowledge graph. 交互式图谱浏览器。">
+<meta name="description" content="Layered, expand-on-demand explorer of the TCM-Bone-KG knowledge graph. 按本体分层、按需展开的交互式图谱浏览器。">
 <link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+SC:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/site.css">
+<link rel="stylesheet" href="assets/css/explorer.css">
 <script>(function(){try{var t=localStorage.getItem('tbk-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);var q=new URLSearchParams(location.search).get('lang');var l=q||localStorage.getItem('tbk-lang')||((navigator.language||'').toLowerCase().indexOf('zh')===0?'zh':'en');document.documentElement.setAttribute('lang',l==='zh'?'zh':'en');}catch(e){}})();</script>
-<style>
-  body { background-image: none; }
-  .explorer-wrap { position: relative; }
-  .explorer-note { position: absolute; left: 1rem; bottom: 1rem; z-index: 5; background: color-mix(in srgb, var(--card) 92%, transparent); border: 1px solid var(--line); border-radius: 12px; padding: .7rem 1rem; font-size: .8rem; color: var(--ink-2); max-width: 340px; box-shadow: var(--shadow); backdrop-filter: blur(8px); }
-  .explorer-note b { color: var(--ink); }
-  .explorer-note button { float: right; border: 0; background: transparent; color: var(--ink-3); margin: -.2rem -.4rem 0 .6rem; font-size: 1rem; }
-  .explorer-bar { border-bottom: 1px solid var(--line); background: var(--paper-2); }
-  .explorer-bar .container { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem 1.4rem; }
-  .explorer-bar a.btn { padding: .4rem .9rem; font-size: .82rem; }
-  .explorer-frame { height: calc(100vh - 64px - 46px); }
-</style>
 </head>
-<body>
+<body class="explorer-page">
 <header class="nav">
   <div class="container nav-inner">
     <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">骨</span><span>TCM-Bone-KG<small><span class="en">Graph explorer</span><span class="zh">图谱浏览器</span></small></span></a>
@@ -46,29 +36,83 @@
   </div>
 </header>
 
-<div class="explorer-bar">
-  <div class="container" style="padding:.55rem 0">
-    <span style="font-weight:600;color:var(--ink)"><span class="en">Full graph · 1,690 nodes · 10,434 edges</span><span class="zh">全图 · 1,690 节点 · 10,434 边</span></span>
-    <span class="legend">
-      <span><span class="en">Click a node to highlight its 2-hop neighbourhood · drag to move · scroll to zoom</span><span class="zh">点击节点高亮两跳邻域 · 拖拽移动 · 滚轮缩放</span></span>
-    </span>
-    <span style="margin-left:auto;display:flex;gap:.5rem">
-      <a class="btn btn-secondary" href="browse.html"><span class="en">Node browser</span><span class="zh">节点检索</span></a>
-      <a class="btn btn-secondary" href="data/kg_interactive_v2.html" target="_blank" rel="noopener"><span class="en">Open full-screen ↗</span><span class="zh">全屏打开 ↗</span></a>
-    </span>
+<div class="xp-shell">
+  <!-- ============ controls ============ -->
+  <aside class="xp-side">
+    <h3><span class="en">Find a node</span><span class="zh">查找节点</span></h3>
+    <div class="xp-search">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg>
+      <input id="q" type="search" autocomplete="off" data-en-placeholder="骨痿 · 杜仲 · 六味地黄丸 · 太溪 …" data-zh-placeholder="骨痿 · 杜仲 · 六味地黄丸 · 太溪 …" placeholder="骨痿 · 杜仲 · 六味地黄丸 · 太溪 …">
+      <div class="xp-suggest" id="suggest"></div>
+    </div>
+
+    <h3><span class="en">Views</span><span class="zh">视图</span></h3>
+    <div class="xp-presets">
+      <button type="button" class="xp-preset" data-preset="core" aria-pressed="true"><span class="g">綱</span><span><b><span class="en">Core ontology</span><span class="zh">核心本体</span></b><span><span class="en">Diseases, syndromes, phenotypes, populations, therapies, outcomes, anchors</span><span class="zh">病名、证型、症状、人群、治法、转归与现代锚点</span></span></span></button>
+      <button type="button" class="xp-preset" data-preset="bridge"><span class="g">橋</span><span><b><span class="en">Cross-era bridge</span><span class="zh">跨时代桥接</span></b><span><span class="en">Classical concepts and the 12 modern clinical anchors</span><span class="zh">古典概念与 12 个现代临床锚点</span></span></span></button>
+      <button type="button" class="xp-preset" data-preset="guwei"><span class="g">痿</span><span><b><span class="en">骨痿 and its treatment</span><span class="zh">骨痿及其治疗</span></b><span><span class="en">Top formulas, herbs and acupoints by TEC</span><span class="zh">按 TEC 排序的方剂、中药与腧穴</span></span></span></button>
+      <button type="button" class="xp-preset" data-preset="syndrome"><span class="g">證</span><span><b><span class="en">Syndromes → prescriptions</span><span class="zh">证型 → 方药</span></b><span><span class="en">Seven syndrome patterns with their leading formulas and herbs</span><span class="zh">七个证型及其主要方剂与中药</span></span></span></button>
+      <button type="button" class="xp-preset" data-preset="provenance"><span class="g">籍</span><span><b><span class="en">Provenance</span><span class="zh">古籍溯源</span></b><span><span class="en">Diseases, the most-cited texts and their dynasties</span><span class="zh">病名、引用最多的古籍及其朝代</span></span></span></button>
+    </div>
+
+    <h3><span class="en">Evidence filters</span><span class="zh">证据筛选</span></h3>
+    <div class="xp-row"><label for="f-tec"><span class="en">Minimum TEC</span><span class="zh">TEC 下限</span></label><output id="f-tec-out">0.00</output></div>
+    <input class="xp-range" id="f-tec" type="range" min="0" max="0.8" step="0.01" value="0">
+    <div class="xp-checks">
+      <label class="xp-check tier-check tier-E1"><input type="checkbox" value="E1" checked>E1</label>
+      <label class="xp-check tier-check tier-E2"><input type="checkbox" value="E2" checked>E2</label>
+      <label class="xp-check tier-check tier-E3"><input type="checkbox" value="E3" checked>E3</label>
+      <label class="xp-check tier-check tier-E4"><input type="checkbox" value="E4" checked>E4</label>
+      <label class="xp-check"><input type="checkbox" id="f-structural" checked><span class="en">structural</span><span class="zh">结构性</span></label>
+      <label class="xp-check"><input type="checkbox" id="f-bridge" checked><span class="en">bridge</span><span class="zh">桥接</span></label>
+    </div>
+    <div class="xp-row" style="margin-top:.7rem"><label for="f-k"><span class="en">Neighbours per expansion</span><span class="zh">每次展开的邻居数</span></label>
+      <select class="xp-select" id="f-k"><option>6</option><option selected>12</option><option>24</option><option>48</option></select></div>
+    <div class="xp-row"><label class="xp-check" style="border:0;padding:0"><input type="checkbox" id="f-labels" checked><span class="en">Show labels</span><span class="zh">显示标签</span></label></div>
+
+    <h3><span class="en">Layout</span><span class="zh">布局</span></h3>
+    <div class="xp-btns">
+      <button type="button" class="xp-btn" id="b-fit"><span class="en">Fit to view</span><span class="zh">适配视图</span></button>
+      <button type="button" class="xp-btn" id="b-freeze" aria-pressed="false"><span class="en">Freeze physics</span><span class="zh">冻结布局</span></button>
+      <button type="button" class="xp-btn" id="b-expand-all"><span class="en">Expand all core</span><span class="zh">展开全部核心</span></button>
+      <button type="button" class="xp-btn" id="b-collapse"><span class="en">Collapse to core</span><span class="zh">收起至核心</span></button>
+    </div>
+
+    <h3><span class="en">Node types · pigments</span><span class="zh">节点类型 · 传统色</span></h3>
+    <div class="xp-legend" id="legend"></div>
+
+    <h3><span class="en">How to read</span><span class="zh">阅读方式</span></h3>
+    <p class="xp-hint">
+      <span class="en">Rows follow the seven-layer ontology from disease (L1) to outcome (L7), with classical texts and dynasties beneath. The modern clinical bridge stands in a column on the right, joined only by dashed cinnabar edges. Line weight encodes TEC. <kbd>click</kbd> details · <kbd>dbl-click</kbd> expand · <kbd>shift+click</kbd> remove · <kbd>drag</kbd> pin.</span>
+      <span class="zh">各行依七层本体自病名（L1）至转归（L7）排列，古籍与朝代居于其下。现代临床桥接层立于右侧一列，仅以朱砂虚线相连。线条粗细表示 TEC。<kbd>单击</kbd>详情 · <kbd>双击</kbd>展开 · <kbd>Shift+单击</kbd>移除 · <kbd>拖拽</kbd>固定。</span>
+    </p>
+    <p class="xp-hint"><a href="data/kg_interactive_v2.html" target="_blank" rel="noopener"><span class="en">Legacy full-graph view (vis-network) ↗</span><span class="zh">旧版全图视图（vis-network）↗</span></a></p>
+  </aside>
+
+  <!-- ============ stage ============ -->
+  <div class="xp-stage" id="stage">
+    <div class="xp-loading" id="loading"><span><span class="loading"></span><span class="en">Loading graph…</span><span class="zh">正在加载图谱…</span></span></div>
+    <div class="xp-status">
+      <span class="pill"><b id="st-nodes">0</b> <span class="en">nodes</span><span class="zh">节点</span></span>
+      <span class="pill"><b id="st-edges">0</b> <span class="en">edges</span><span class="zh">关系</span></span>
+      <span class="pill" id="st-warn" hidden style="color:var(--cinnabar)"><span class="en">Large view · consider collapsing or raising the TEC floor</span><span class="zh">节点较多 · 可收起或提高 TEC 下限</span></span>
+    </div>
+    <div class="xp-title" aria-hidden="true">
+      <span class="seal">醫哲</span>
+      <span class="vt">骨之圖譜<small>TCM · BONE · KG</small></span>
+    </div>
+    <svg id="graph" role="img" aria-label="TCM-Bone-KG layered knowledge graph"></svg>
+    <div class="xp-zoom">
+      <button type="button" id="z-in" aria-label="Zoom in">+</button>
+      <button type="button" id="z-out" aria-label="Zoom out">−</button>
+      <button type="button" id="z-fit" aria-label="Fit">⤢</button>
+    </div>
+    <aside class="xp-detail" id="detail" aria-live="polite"></aside>
   </div>
 </div>
 
-<div class="explorer-wrap">
-  <iframe class="explorer-frame" src="data/kg_interactive_v2.html" title="TCM-Bone-KG interactive network" loading="eager"></iframe>
-  <div class="explorer-note" id="explorer-note">
-    <button type="button" aria-label="Dismiss" onclick="document.getElementById('explorer-note').remove()">×</button>
-    <b><span class="en">Rendering the whole graph</span><span class="zh">正在渲染全图</span></b><br>
-    <span class="en">The physics layout of 10,000+ edges takes a few seconds to settle on first load. Node colours follow entity type; the central hub is 骨痿 (gu wei).</span>
-    <span class="zh">首次加载时，一万余条边的物理布局需要数秒才能稳定。节点颜色对应实体类型；中心枢纽为骨痿。</span>
-  </div>
-</div>
-
+<script src="assets/vendor/d3.v7.min.js"></script>
 <script src="assets/js/site.js"></script>
+<script src="assets/js/explorer.js"></script>
 </body>
 </html>

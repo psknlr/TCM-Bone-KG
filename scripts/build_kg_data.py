@@ -16,6 +16,7 @@ import pathlib
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 DATA = ROOT / "data"
 OUT = ROOT / "assets" / "js" / "kg-data.js"
+GRAPH_OUT = ROOT / "assets" / "data" / "kg_graph.json"
 
 
 def read(name):
@@ -73,6 +74,37 @@ def main():
         encoding="utf-8",
     )
     print(f"wrote {OUT.relative_to(ROOT)}: {len(nodes)} nodes, {len(edges)} edges, {len(cms)} CMS rows")
+
+    # Compact graph for the interactive explorer (integer-indexed, no CSV parsing at runtime)
+    idx = {n["node_id"]: i for i, n in enumerate(nodes)}
+    gnodes = []
+    for n in nodes:
+        g = {"id": n["node_id"], "t": n["type"], "n": n["name"], "d": int(n["degree"]), "b": round(float(n["betweenness"] or 0), 4)}
+        if n["n_passages"]:
+            g["p"] = int(float(n["n_passages"]))
+        if n["year"]:
+            g["y"] = int(float(n["year"]))
+        if n["dynasty"]:
+            g["dy"] = n["dynasty"]
+        if n["drug_category"]:
+            g["dc"] = n["drug_category"]
+        if n["meridian"]:
+            g["me"] = n["meridian"]
+        if n["anchor_category"]:
+            g["ac"] = n["anchor_category"]
+        if n["anchor_name_zh"]:
+            g["az"] = n["anchor_name_zh"]
+        gnodes.append(g)
+    cls = {"evidence": "e", "structural": "s", "bridge_score": "b"}
+    gedges = []
+    for e in edges:
+        if e["source_id"] not in idx or e["target_id"] not in idx:
+            continue
+        w = e["TEC_t"] or e["mapping_score"] or ""
+        gedges.append([idx[e["source_id"]], idx[e["target_id"]], e["relation"], round(float(w), 3) if w else None, e["evidence_tier"] or "", cls.get(e["edge_class"], "e")])
+    GRAPH_OUT.parent.mkdir(parents=True, exist_ok=True)
+    GRAPH_OUT.write_text(json.dumps({"nodes": gnodes, "edges": gedges}, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+    print(f"wrote {GRAPH_OUT.relative_to(ROOT)}: {GRAPH_OUT.stat().st_size // 1024} KB")
 
 
 if __name__ == "__main__":

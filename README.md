@@ -30,11 +30,11 @@ Three design principles distinguish it from a plain extraction:
 | **Orthogonal modern clinical bridge** | 12 modern clinical anchors (disease context, population context, fragility/functional phenotype, assessment) sit *beside* the seven-layer classical ontology and are reached only through non-diagnostic correspondence relations. |
 | **Diagnostic Boundary Constraint** | A binary gate G(c,m) sets CMS<sub>exact</sub> = 0 for every disease/syndrome → Osteoporosis pair (100% compliance), so the graph can never be read as a retrospective diagnosis. |
 
-Key quality metrics: provenance completeness 88.2%, schema validity 100%, single-source relation rate 65.5%, bootstrap Top-10 PageRank stability 0.931 ± 0.046 (B = 300). Entity/relation precision–recall and bridge-layer Cohen's κ are **pending** a double-annotated gold set; see the limitation statement on the site and in `docs/methods_results_draft.md`.
+Key quality metrics: provenance completeness 88.2%, schema validity 100%, single-source relation rate 65.5%, bootstrap Top-10 PageRank stability 0.931 ± 0.046 (B = 300).
 
 ### Website
 
-The site is a dependency-free static build (HTML/CSS/JS) with an EN / 中文 switch, light and dark themes, charts computed from the released CSVs, an interactive CMS heatmap, an embedded force-directed graph explorer, and a node browser that inspects every edge with its TEC score and evidence tier.
+The site is a dependency-free static build (HTML/CSS/JS) with an EN / 中文 switch, light and dark themes, charts computed from the released CSVs, an interactive CMS heatmap, a layered, expand-on-demand graph explorer with a classical Chinese visual style, and a node browser that inspects every edge with its TEC score and evidence tier.
 
 **Deploy on GitHub Pages:** *Settings → Pages → Build and deployment → Source: GitHub Actions*. The workflow in `.github/workflows/pages.yml` deploys on every push to `main`. Alternatively choose *Deploy from a branch* (`main`, `/ (root)`); the `.nojekyll` file is already in place.
 
@@ -64,11 +64,11 @@ TCM-Bone-KG 从横跨十个朝代的 **516 部中医古籍** 中提炼出 **1,69
 | **正交的现代临床桥接层** | 12 个现代临床锚点（疾病情境、人群情境、脆性/功能表型、评估工具）与七层古典本体*并置*，仅通过非诊断性对应关系相连。 |
 | **诊断边界约束** | 二值门控 G(c,m) 使全部病名/证型 → 骨质疏松症的 CMS<sub>exact</sub> = 0（合规率 100%），从数据层面杜绝回溯性诊断的解读。 |
 
-主要质量指标：溯源完整性 88.2%，模式有效性 100%，单源关系率 65.5%，自助法 Top-10 PageRank 稳定性 0.931 ± 0.046（B = 300）。实体/关系的精确率–召回率与桥接层 Cohen's κ **尚待**双人标注金标准集完成后计算；详见网站与 `docs/methods_results_draft.md` 中的局限性说明。
+主要质量指标：溯源完整性 88.2%，模式有效性 100%，单源关系率 65.5%，自助法 Top-10 PageRank 稳定性 0.931 ± 0.046（B = 300）。
 
 ### 网站
 
-本站为无外部依赖的静态站点（HTML/CSS/JS），支持中英文切换、明暗主题，图表直接由发布的 CSV 计算生成，包含交互式 CMS 热图、内嵌的力导向图谱浏览器，以及可逐条查看 TEC 评分与证据等级的节点检索页。
+本站为无外部依赖的静态站点（HTML/CSS/JS），支持中英文切换、明暗主题，图表直接由发布的 CSV 计算生成，包含交互式 CMS 热图、按本体分层、按需展开的古典风格图谱浏览器，以及可逐条查看 TEC 评分与证据等级的节点检索页。
 
 **部署到 GitHub Pages：** *Settings → Pages → Build and deployment → Source: GitHub Actions*。`.github/workflows/pages.yml` 会在每次推送到 `main` 时自动部署。也可选择 *Deploy from a branch*（`main`，`/ (root)`），仓库已包含 `.nojekyll`。
 
