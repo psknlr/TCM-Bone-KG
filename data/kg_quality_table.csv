@@ -1,0 +1,26 @@
+category,metric,unit,value,notes
+Graph size,Total nodes,count,1690,
+Graph size,Total edges,count,10434,
+Graph size,Modern clinical anchors (bridge layer),count,12,3 relabeled + 9 new
+Graph size,Cross-era bridge edges,count,70,
+Evidence-weighted KG,Evidence-class edges,count (%),9201 (88.2%),TEC computed
+Evidence-weighted KG,Structural (definitional) edges,count (%),1207 (11.6%),"curated facts, no per-passage TEC"
+Evidence-weighted KG,Bridge-score edges,count (%),26 (0.2%),weight = CMS/phenotype score
+Evidence-weighted KG,TEC mean / median (evidence edges),score,0.126 / 0.084,range 0.017-0.899
+Evidence-weighted KG,"TEC weight-sensitivity (rank corr., ±20% α/β/γ)",ρ,≥ 0.9981,4 perturbations tested
+Evidence-weighted KG,"Evidence tier E1 (single entry, single book)",% of evidence edges,52.0%,
+Evidence-weighted KG,"Evidence tier E2 (multi-entry, single book)",% of evidence edges,13.5%,
+Evidence-weighted KG,"Evidence tier E3 (multi-book, single dynasty)",% of evidence edges,6.9%,
+Evidence-weighted KG,"Evidence tier E4 (multi-book, multi-dynasty)",% of evidence edges,27.5%,graph backbone
+KG quality,Provenance Completeness (passage-level),%,88.2%,"9,201/10,434 edges"
+KG quality,Schema Validity (both endpoints resolve to declared types),%,100.00%,0 dangling edges
+KG quality,Single-Source Relation Rate (SSR),%,65.5%,evidence edges from exactly 1 book
+KG quality,Bootstrap Top-10 PageRank stability (B=300),mean Jaccard,0.931 ± 0.046,
+KG quality,Bootstrap Top-20 PageRank stability (B=300),mean Jaccard,0.992 ± 0.019,
+KG quality,Bootstrap rank correlation vs. original (B=300),mean Spearman ρ,0.935 ± 0.013,
+Cross-era bridging,Diagnostic Boundary Constraint compliance,%,100%,all disease/syndrome→Osteoporosis edges gated to CMS_exact=0
+Cross-era bridging,Highest CMS classical concept (pre-gate),concept (CMS),脾胃虚弱证 (0.095),Osteoporosis anchor
+Cross-era bridging,y_m / u_m vectors,status,"clinical-judgment input, NOT learned",see modern_anchor_*_vectors_*.csv — pending expert review
+Expert validation (PENDING),Entity Precision / Recall / F1,—,NOT COMPUTABLE THIS SESSION,requires double-annotated gold set
+Expert validation (PENDING),Relation Precision / Recall / F1,—,NOT COMPUTABLE THIS SESSION,requires double-annotated gold set
+Expert validation (PENDING),Bridge-layer Cohen's κ (inter-annotator),—,NOT COMPUTABLE THIS SESSION,"corpus/OP/20250201筛选结果...xlsx is rule-based tagging, not expert-adjudicated"

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-en="Node browser · TCM-Bone-KG" data-zh="节点检索 · TCM-Bone-KG">Node browser · TCM-Bone-KG</title>
+<meta name="description" content="Search all 1,690 nodes of TCM-Bone-KG and inspect every edge with its TEC score and evidence tier. 检索节点与关系边。">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>(function(){try{var t=localStorage.getItem('tbk-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);var q=new URLSearchParams(location.search).get('lang');var l=q||localStorage.getItem('tbk-lang')||((navigator.language||'').toLowerCase().indexOf('zh')===0?'zh':'en');document.documentElement.setAttribute('lang',l==='zh'?'zh':'en');}catch(e){}})();</script>
+</head>
+<body>
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">骨</span><span>TCM-Bone-KG<small><span class="en">Node browser</span><span class="zh">节点检索</span></small></span></a>
+    <nav class="nav-links" id="nav-links" aria-label="Primary">
+      <a href="index.html"><span class="en">Home</span><span class="zh">首页</span></a>
+      <a href="index.html#methods"><span class="en">Methods</span><span class="zh">方法</span></a>
+      <a href="index.html#results"><span class="en">Results</span><span class="zh">结果</span></a>
+      <a href="explorer.html"><span class="en">Explorer</span><span class="zh">图谱浏览</span></a>
+      <a href="browse.html" class="active"><span class="en">Nodes</span><span class="zh">节点检索</span></a>
+      <a href="index.html#data"><span class="en">Data</span><span class="zh">数据下载</span></a>
+    </nav>
+    <div class="nav-tools">
+      <div class="lang-switch" role="group" aria-label="Language / 语言">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+      </div>
+      <button type="button" class="icon-btn theme-btn" aria-label="Toggle dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg></button>
+      <button type="button" class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main class="section" style="padding-top:2.5rem">
+  <div class="container">
+    <div class="section-head" style="margin-bottom:1.6rem">
+      <div class="eyebrow"><span class="en">Node browser</span><span class="zh">节点检索</span></div>
+      <h2><span class="en">Search 1,690 nodes, inspect 10,434 edges</span><span class="zh">检索 1,690 个节点，查看 10,434 条关系</span></h2>
+      <p class="lead"><span class="en">Type a Chinese name (e.g. 骨痿, 杜仲, 六味地黄丸, 太溪) or filter by type. Select a node to list its neighbours with relation, TEC score and evidence tier. Data loads from the CSV files in <code>data/</code>.</span><span class="zh">输入中文名称（如 骨痿、杜仲、六味地黄丸、太溪）或按类型筛选。选中节点后可查看其邻居、关系类型、TEC 评分与证据等级。数据来自 <code>data/</code> 目录中的 CSV 文件。</span></p>
+    </div>
+
+    <div class="browser">
+      <aside class="panel">
+        <h3><span class="en">Search</span><span class="zh">搜索</span></h3>
+        <input class="input" id="q" type="search" autocomplete="off" data-en-placeholder="Node name… e.g. 骨痿" data-zh-placeholder="节点名称… 例如 骨痿" placeholder="Node name… e.g. 骨痿">
+        <div class="chips" id="type-chips"></div>
+        <div style="font-size:.78rem;color:var(--ink-3);margin:.9rem 0 .5rem" id="count"></div>
+        <div class="node-list" id="node-list"><div class="empty"><span class="loading"></span><span class="en">Loading nodes…</span><span class="zh">正在加载节点…</span></div></div>
+      </aside>
+
+      <section class="panel" id="detail">
+        <div class="empty">
+          <span class="en">Select a node on the left to see its details and edges.</span>
+          <span class="zh">在左侧选择一个节点以查看其详情与关系边。</span>
+        </div>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <div class="container">
+    <div class="signature" style="margin-top:0;border-top:0;padding-top:0">
+      <span>© 2026 TCM-Bone-KG</span>
+      <span class="designer"><span class="seal" aria-hidden="true">医哲</span><span><b><span class="en">Designed by</span><span class="zh">网站设计</span> · Institute of Medical Philosophy &amp; Future AI</b></span></span>
+    </div>
+  </div>
+</footer>
+
+<script src="assets/js/site.js"></script>
+<script src="assets/js/browse.js"></script>
+</body>
+</html>

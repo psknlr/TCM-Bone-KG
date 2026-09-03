@@ -1,0 +1,13 @@
+,活动受限,骨痛,乏力,腰背痛,步态不稳,骨折,驼背,身高变矮
+Osteoporosis,1.0,1.0,0.5,1.0,0.5,1.0,0.5,0.5
+Age-related osteoporosis context,1.0,0.5,0.5,0.5,1.0,0.5,0.5,0.5
+Postmenopausal osteoporosis context,0.5,0.5,0.0,1.0,0.0,0.5,0.5,0.5
+Pregnancy/lactation-associated osteoporosis context,0.0,0.5,0.0,1.0,0.0,0.5,0.0,0.0
+Fragility fracture,0.0,0.0,0.0,0.0,0.0,1.0,0.0,0.0
+Vertebral fragility fracture,0.0,0.0,0.0,0.5,0.0,1.0,1.0,1.0
+Functional impairment,1.0,0.0,0.0,0.0,0.5,0.0,0.0,0.0
+Gait instability / fall risk,0.5,0.0,0.0,0.0,1.0,0.0,0.0,0.0
+DXA/BMD assessment,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+T-score,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+Fracture-risk assessment,0.0,0.0,0.0,0.0,0.0,0.5,0.0,0.0
+Vertebral fracture assessment,0.0,0.0,0.0,0.0,0.0,0.5,0.5,0.5

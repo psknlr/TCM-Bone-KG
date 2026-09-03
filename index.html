@@ -1,0 +1,589 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title data-en="TCM-Bone-KG · Evidence-weighted knowledge graph of bone disorders in classical Chinese medicine" data-zh="TCM-Bone-KG · 骨质疏松中医古籍证据加权知识图谱">TCM-Bone-KG · Evidence-weighted knowledge graph of bone disorders in classical Chinese medicine</title>
+<meta name="description" content="TCM-Bone-KG: an evidence-weighted knowledge graph (1,690 nodes, 10,434 edges) of osteoporosis-related bone disorders across 516 classical Chinese medical texts, with a Triple Evidence Confidence score and an orthogonal, non-diagnostic modern clinical bridge. 骨质疏松中医古籍证据加权知识图谱。">
+<meta property="og:title" content="TCM-Bone-KG">
+<meta property="og:description" content="Evidence-weighted knowledge graph of bone disorders in classical Chinese medicine · 骨质疏松中医古籍知识图谱">
+<meta property="og:type" content="website">
+<meta property="og:image" content="assets/img/fig5_ecpb_evidence_bridge.png">
+<link rel="icon" href="assets/img/favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500;1,600&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&family=Noto+Serif+SC:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/site.css">
+<script>
+/* prevent theme/lang flash before site.js runs */
+(function(){try{var t=localStorage.getItem('tbk-theme');if(!t)t=matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';document.documentElement.setAttribute('data-theme',t);
+var q=new URLSearchParams(location.search).get('lang');var l=q||localStorage.getItem('tbk-lang')||((navigator.language||'').toLowerCase().indexOf('zh')===0?'zh':'en');document.documentElement.setAttribute('lang',l==='zh'?'zh':'en');}catch(e){}})();
+</script>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<header class="nav">
+  <div class="container nav-inner">
+    <a class="brand" href="index.html" aria-label="TCM-Bone-KG home">
+      <span class="brand-mark" aria-hidden="true">骨</span>
+      <span>TCM-Bone-KG<small><span class="en">Knowledge Graph</span><span class="zh">中医骨病知识图谱</span></small></span>
+    </a>
+    <nav class="nav-links" id="nav-links" aria-label="Primary">
+      <a href="#overview"><span class="en">Overview</span><span class="zh">概览</span></a>
+      <a href="#architecture"><span class="en">Architecture</span><span class="zh">架构</span></a>
+      <a href="#methods"><span class="en">Methods</span><span class="zh">方法</span></a>
+      <a href="#results"><span class="en">Results</span><span class="zh">结果</span></a>
+      <a href="#bridge"><span class="en">Cross-era bridge</span><span class="zh">跨时代桥接</span></a>
+      <a href="explorer.html"><span class="en">Explorer</span><span class="zh">图谱浏览</span></a>
+      <a href="browse.html"><span class="en">Nodes</span><span class="zh">节点检索</span></a>
+      <a href="#data"><span class="en">Data</span><span class="zh">数据下载</span></a>
+    </nav>
+    <div class="nav-tools">
+      <div class="lang-switch" role="group" aria-label="Language / 语言">
+        <button type="button" data-lang="en" aria-pressed="true">EN</button>
+        <button type="button" data-lang="zh" aria-pressed="false">中文</button>
+      </div>
+      <button type="button" class="icon-btn theme-btn" aria-label="Toggle dark mode">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3a9 9 0 1 0 9 9 7 7 0 0 1-9-9z"/></svg>
+      </button>
+      <button type="button" class="icon-btn menu-btn" aria-label="Menu" aria-expanded="false" aria-controls="nav-links">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<!-- ===================== HERO ===================== -->
+<section class="hero">
+  <div class="container hero-grid">
+    <div>
+      <div class="eyebrow"><span class="en">Digital Health · Medical Humanities · Knowledge Graph</span><span class="zh">数字健康 · 医学人文 · 知识图谱</span></div>
+      <h1 class="display">
+        <span class="en">Reading the classics of <span class="accent">bone</span>, with evidence you can weigh.</span>
+        <span class="zh">以可称量的证据，<br>重读<span class="accent">骨</span>之古典。</span>
+      </h1>
+      <p class="sub">
+        <span class="en">TCM-Bone-KG is an evidence-weighted knowledge graph of osteoporosis-related bone disorders (骨痿, 骨枯, 骨痹, 骨空 …) distilled from 516 classical Chinese medical texts spanning ten dynasties. Every relation carries passage-level provenance and a Triple Evidence Confidence score; a strictly non-diagnostic bridge connects classical concepts to modern clinical anchors.</span>
+        <span class="zh">TCM-Bone-KG 是一个证据加权的中医骨病知识图谱，从横跨十个朝代的 516 部中医古籍中提炼出骨痿、骨枯、骨痹、骨空等与骨质疏松相关的病证体系。每一条关系都带有条目级溯源与「三元组证据置信度」评分；一层严格非诊断性的桥接层将古典概念与现代临床锚点相连。</span>
+      </p>
+      <div class="hero-tags">
+        <span class="tag indigo">TEC · <span class="en">Triple Evidence Confidence</span><span class="zh">三元组证据置信度</span></span>
+        <span class="tag cinnabar">ECPB · <span class="en">Cross-era phenotype bridge</span><span class="zh">跨时代表型桥接</span></span>
+        <span class="tag gold"><span class="en">Diagnostic Boundary Constraint</span><span class="zh">诊断边界约束</span></span>
+        <span class="tag sage">RDF/OWL · GraphML · Neo4j</span>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" href="explorer.html">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><circle cx="6" cy="6" r="2.5"/><circle cx="18" cy="8" r="2.5"/><circle cx="9" cy="18" r="2.5"/><circle cx="19" cy="18" r="2"/><path d="M8.2 7l7.4 1M7 8.2l1.5 7.3M11.4 17.5l5.6.3M16 10l2.5 6"/></svg>
+          <span class="en">Explore the graph</span><span class="zh">交互式浏览图谱</span>
+        </a>
+        <a class="btn btn-secondary" href="#data">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v12m0 0l-4-4m4 4l4-4M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>
+          <span class="en">Download data</span><span class="zh">下载数据</span>
+        </a>
+        <a class="btn btn-ghost" href="#methods"><span class="en">Read the methods →</span><span class="zh">阅读方法 →</span></a>
+      </div>
+    </div>
+
+    <div class="hero-art reveal" aria-hidden="true">
+      <svg viewBox="0 0 480 480" xmlns="http://www.w3.org/2000/svg">
+        <defs>
+          <radialGradient id="glow" cx="50%" cy="50%" r="50%"><stop offset="0" stop-color="var(--indigo)" stop-opacity=".18"/><stop offset="1" stop-color="var(--indigo)" stop-opacity="0"/></radialGradient>
+          <style>
+            .e{stroke:var(--ink-3);stroke-opacity:.35;stroke-width:1}
+            .e2{stroke:var(--cinnabar);stroke-opacity:.6;stroke-width:1.2;stroke-dasharray:4 4}
+            .n{fill:var(--card);stroke:var(--indigo);stroke-width:1.6}
+            .n2{fill:var(--indigo)}
+            .n3{fill:var(--cinnabar)}
+            .n4{fill:var(--gold)}
+            .lb{font-family:var(--serif-cjk);font-size:13px;fill:var(--ink)}
+            .lbe{font-family:var(--sans);font-size:9px;fill:var(--ink-3);letter-spacing:.06em}
+            .ring{fill:none;stroke:var(--line);stroke-width:1}
+            @keyframes drift{0%,100%{transform:translateY(0)}50%{transform:translateY(-4px)}}
+            .fl{animation:drift 6s ease-in-out infinite}
+            .fl2{animation:drift 7.5s ease-in-out infinite; animation-delay:-2s}
+          </style>
+        </defs>
+        <circle cx="240" cy="240" r="230" fill="url(#glow)"/>
+        <circle cx="240" cy="240" r="200" class="ring"/>
+        <circle cx="240" cy="240" r="140" class="ring" stroke-dasharray="2 5"/>
+        <circle cx="240" cy="240" r="80" class="ring"/>
+        <!-- edges -->
+        <g>
+          <line class="e" x1="240" y1="240" x2="140" y2="120"/><line class="e" x1="240" y1="240" x2="340" y2="120"/>
+          <line class="e" x1="240" y1="240" x2="380" y2="250"/><line class="e" x1="240" y1="240" x2="330" y2="360"/>
+          <line class="e" x1="240" y1="240" x2="150" y2="370"/><line class="e" x1="240" y1="240" x2="95" y2="245"/>
+          <line class="e" x1="140" y1="120" x2="60" y2="170"/><line class="e" x1="140" y1="120" x2="200" y2="50"/>
+          <line class="e" x1="340" y1="120" x2="300" y2="45"/><line class="e" x1="340" y1="120" x2="420" y2="160"/>
+          <line class="e" x1="380" y1="250" x2="440" y2="300"/><line class="e" x1="330" y1="360" x2="380" y2="430"/>
+          <line class="e" x1="150" y1="370" x2="90" y2="420"/><line class="e" x1="150" y1="370" x2="220" y2="440"/>
+          <line class="e" x1="95" y1="245" x2="40" y2="300"/><line class="e" x1="140" y1="120" x2="340" y2="120"/>
+          <line class="e" x1="95" y1="245" x2="150" y2="370"/><line class="e" x1="380" y1="250" x2="330" y2="360"/>
+          <line class="e2" x1="340" y1="120" x2="430" y2="70"/><line class="e2" x1="380" y1="250" x2="450" y2="215"/><line class="e2" x1="240" y1="240" x2="430" y2="70"/>
+        </g>
+        <!-- outer nodes -->
+        <g class="fl2">
+          <circle cx="60" cy="170" r="5" class="n4"/><circle cx="200" cy="50" r="5" class="n4"/><circle cx="300" cy="45" r="5" class="n4"/>
+          <circle cx="420" cy="160" r="5" class="n4"/><circle cx="440" cy="300" r="5" class="n4"/><circle cx="380" cy="430" r="5" class="n4"/>
+          <circle cx="90" cy="420" r="5" class="n4"/><circle cx="220" cy="440" r="5" class="n4"/><circle cx="40" cy="300" r="5" class="n4"/>
+        </g>
+        <!-- modern anchors -->
+        <g class="fl">
+          <rect x="415" y="56" width="30" height="28" rx="6" class="n3" opacity=".9"/><text x="430" y="75" text-anchor="middle" class="lbe" style="fill:#fff;font-size:10px;font-weight:700">M</text>
+          <rect x="435" y="201" width="30" height="28" rx="6" class="n3" opacity=".9"/><text x="450" y="220" text-anchor="middle" class="lbe" style="fill:#fff;font-size:10px;font-weight:700">M</text>
+        </g>
+        <!-- middle nodes -->
+        <g class="fl">
+          <circle cx="140" cy="120" r="22" class="n"/><text x="140" y="125" text-anchor="middle" class="lb">证型</text>
+          <circle cx="340" cy="120" r="22" class="n"/><text x="340" y="125" text-anchor="middle" class="lb">症状</text>
+          <circle cx="380" cy="250" r="22" class="n"/><text x="380" y="255" text-anchor="middle" class="lb">人群</text>
+          <circle cx="330" cy="360" r="22" class="n"/><text x="330" y="365" text-anchor="middle" class="lb">治法</text>
+          <circle cx="150" cy="370" r="22" class="n"/><text x="150" y="375" text-anchor="middle" class="lb">方药</text>
+          <circle cx="95" cy="245" r="22" class="n"/><text x="95" y="250" text-anchor="middle" class="lb">古籍</text>
+        </g>
+        <!-- centre -->
+        <circle cx="240" cy="240" r="46" class="n2"/>
+        <text x="240" y="236" text-anchor="middle" style="font-family:var(--serif-cjk);font-size:26px;fill:#fff;font-weight:600">骨痿</text>
+        <text x="240" y="256" text-anchor="middle" class="lbe" style="fill:#fff;opacity:.85">GU WEI</text>
+      </svg>
+      <div class="hero-seal">医哲<br>未来</div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="stats reveal" role="list">
+      <div class="stat" role="listitem"><div class="n">1,690</div><div class="l"><span class="en">Nodes · 15 entity types</span><span class="zh">节点 · 15 类实体</span></div></div>
+      <div class="stat" role="listitem"><div class="n">10,434</div><div class="l"><span class="en">Edges · 26 relation types</span><span class="zh">关系边 · 26 种关系</span></div></div>
+      <div class="stat" role="listitem"><div class="n">516</div><div class="l"><span class="en">Classical texts · 10 dynasties</span><span class="zh">古籍 · 10 个朝代</span></div></div>
+      <div class="stat" role="listitem"><div class="n">3,644</div><div class="l"><span class="en">Curated passages</span><span class="zh">纳入条目</span></div></div>
+      <div class="stat" role="listitem"><div class="n">88.2%</div><div class="l"><span class="en">Provenance completeness</span><span class="zh">溯源完整性</span></div></div>
+      <div class="stat" role="listitem"><div class="n">12</div><div class="l"><span class="en">Modern clinical anchors</span><span class="zh">现代临床锚点</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== OVERVIEW ===================== -->
+<section class="section" id="overview">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="en">Overview</span><span class="zh">概览</span></div>
+      <h2><span class="en">Three ideas hold the graph together</span><span class="zh">支撑图谱的三个核心设计</span></h2>
+      <p class="lead">
+        <span class="en">The graph is not a list of extracted facts. It is a provenance-bearing, evidence-graded, boundary-aware representation of how classical physicians wrote about bone.</span>
+        <span class="zh">图谱并非抽取事实的简单堆叠，而是一种携带溯源、分级证据、明确边界的表示方式，记录古代医家如何论述「骨」。</span>
+      </p>
+    </div>
+    <div class="grid-3">
+      <article class="card reveal">
+        <div class="card-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3v18M5 8l7-3 7 3M5 8l-2 6h4l-2-6zM19 8l-2 6h4l-2-6z"/></svg></div>
+        <h3><span class="en">Evidence-weighted, not merely extracted</span><span class="zh">证据加权，而非简单抽取</span></h3>
+        <p><span class="en">Every evidence triple carries a Triple Evidence Confidence (TEC) score on a single [0, 1] scale, combining passage relevance with how often it recurs, across how many independent books, and how widely across dynasties. Rankings are stable to ±20% weight perturbation (ρ ≥ 0.998).</span>
+        <span class="zh">每条证据三元组都拥有统一 [0,1] 尺度的三元组证据置信度（TEC），综合条目相关度、出现频次、独立书目数与朝代跨度。在 ±20% 权重扰动下排序相关系数 ρ ≥ 0.998，结果稳健。</span></p>
+      </article>
+      <article class="card cinnabar reveal">
+        <div class="card-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 6h7v12H4zM13 6h7v12h-7z" stroke-dasharray="3 2"/><path d="M11 12h2"/></svg></div>
+        <h3><span class="en">An orthogonal modern bridge</span><span class="zh">正交的现代临床桥接层</span></h3>
+        <p><span class="en">Twelve modern clinical anchors (disease context, population context, fragility/functional phenotype, assessment) sit beside the seven-layer classical ontology, never inside it. Classical concepts connect only through non-diagnostic correspondence relations.</span>
+        <span class="zh">12 个现代临床锚点（疾病情境、人群情境、脆性/功能表型、评估工具）与七层古典本体并置，而非作为第八层嵌入。古典概念只能通过非诊断性的对应关系与之相连。</span></p>
+      </article>
+      <article class="card sage reveal">
+        <div class="card-glyph"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 3l8 4v5c0 5-3.5 8-8 9-4.5-1-8-4-8-9V7z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3><span class="en">A formal diagnostic boundary</span><span class="zh">形式化的诊断边界</span></h3>
+        <p><span class="en">No classical text records DXA or a T-score. A binary gate G(c,m) therefore forces CMS<sub>exact</sub> = 0 for every disease/syndrome → Osteoporosis pair: 100% compliance, encoded in the data, so the graph cannot be read as retrospective diagnosis.</span>
+        <span class="zh">古籍中不存在 DXA 或 T 值记录。二值门控 G(c,m) 强制所有病名/证型 → 骨质疏松症的 CMS<sub>exact</sub> = 0，合规率 100%，从数据层面杜绝将图谱解读为回溯性诊断。</span></p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== ARCHITECTURE ===================== -->
+<section class="section" id="architecture">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="en">Architecture</span><span class="zh">图谱架构</span></div>
+      <h2><span class="en">Seven classical layers, one orthogonal bridge</span><span class="zh">七层古典本体 · 一层正交桥接</span></h2>
+      <p class="lead"><span class="en">The ontology follows the clinical reasoning path of the classics, from disease name to outcome. The modern layer is deliberately drawn beside it.</span><span class="zh">本体沿古籍临床推理路径展开：由病名至转归。现代层被有意绘制于其侧，而非其上。</span></p>
+    </div>
+    <div class="arch">
+      <div class="reveal">
+        <svg viewBox="0 0 640 470" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Seven-layer ontology with orthogonal modern clinical bridge">
+          <defs>
+            <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="var(--ink-3)"/></marker>
+            <marker id="ar2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5 0 10z" fill="var(--cinnabar)"/></marker>
+            <style>
+              .L{fill:var(--indigo);rx:8}
+              .Lt{fill:#fff;font-family:var(--sans);font-size:13px;font-weight:600}
+              .Lz{fill:#fff;font-family:var(--serif-cjk);font-size:12px;opacity:.85}
+              .Ln{fill:var(--gold);font-family:var(--serif-latin);font-size:13px;font-weight:700}
+              .dn{stroke:var(--ink-3);stroke-width:1.4;marker-end:url(#ar)}
+              .br{fill:none;stroke:var(--cinnabar);stroke-width:1.5;stroke-dasharray:5 4;marker-end:url(#ar2)}
+              .bx{fill:var(--cinnabar-soft);stroke:var(--cinnabar);stroke-width:1.5;stroke-dasharray:6 4}
+              .bt{fill:var(--cinnabar);font-family:var(--sans);font-size:12.5px;font-weight:600}
+              .bi{fill:var(--card);stroke:var(--line)}
+              .bit{fill:var(--ink);font-family:var(--sans);font-size:11.5px}
+              .sm{fill:var(--ink-3);font-family:var(--mono);font-size:9.5px}
+            </style>
+          </defs>
+          <g id="layers">
+            <g transform="translate(40,18)"><rect class="L" width="250" height="44"/><text class="Ln" x="14" y="28">L1</text><text class="Lt" x="48" y="21">Disease</text><text class="Lz" x="48" y="37">古籍病名</text></g>
+            <g transform="translate(40,80)"><rect class="L" width="250" height="44"/><text class="Ln" x="14" y="28">L2</text><text class="Lt" x="48" y="21">Syndrome</text><text class="Lz" x="48" y="37">证型</text></g>
+            <g transform="translate(40,142)"><rect class="L" width="250" height="44"/><text class="Ln" x="14" y="28">L3</text><text class="Lt" x="48" y="21">Phenotype</text><text class="Lz" x="48" y="37">症状 · 体征</text></g>
+            <g transform="translate(40,204)"><rect class="L" width="250" height="44"/><text class="Ln" x="14" y="28">L4</text><text class="Lt" x="48" y="21">Population</text><text class="Lz" x="48" y="37">人群</text></g>
+            <g transform="translate(40,266)"><rect class="L" width="250" height="44"/><text class="Ln" x="14" y="28">L5</text><text class="Lt" x="48" y="21">Therapy</text><text class="Lz" x="48" y="37">治法</text></g>
+            <g transform="translate(40,328)"><rect class="L" width="250" height="44"/><text class="Ln" x="14" y="28">L6</text><text class="Lt" x="48" y="21">Formula · Herb · Acupoint</text><text class="Lz" x="48" y="37">方剂 · 中药 · 腧穴</text></g>
+            <g transform="translate(40,390)"><rect class="L" width="250" height="44"/><text class="Ln" x="14" y="28">L7</text><text class="Lt" x="48" y="21">Outcome</text><text class="Lz" x="48" y="37">转归</text></g>
+            <line class="dn" x1="165" y1="62" x2="165" y2="78"/><line class="dn" x1="165" y1="124" x2="165" y2="140"/><line class="dn" x1="165" y1="186" x2="165" y2="202"/>
+            <line class="dn" x1="165" y1="248" x2="165" y2="264"/><line class="dn" x1="165" y1="310" x2="165" y2="326"/><line class="dn" x1="165" y1="372" x2="165" y2="388"/>
+          </g>
+          <!-- provenance sidebar -->
+          <g transform="translate(6,18)">
+            <rect x="0" y="0" width="22" height="416" rx="6" fill="var(--gold-soft)"/>
+            <text transform="translate(15,208) rotate(-90)" text-anchor="middle" class="sm" style="fill:var(--gold);font-size:10px;letter-spacing:.12em">PROVENANCE · 古籍 → 朝代</text>
+          </g>
+          <!-- bridge arrows -->
+          <path class="br" d="M290 40 C 400 40, 380 150, 420 150"/>
+          <path class="br" d="M290 102 C 380 102, 380 175, 420 175"/>
+          <path class="br" d="M290 164 C 360 164, 360 200, 420 200"/>
+          <path class="br" d="M290 226 C 360 226, 360 225, 420 225"/>
+          <!-- bridge box -->
+          <rect class="bx" x="420" y="110" width="200" height="200" rx="12"/>
+          <text class="bt" x="520" y="98" text-anchor="middle">Modern clinical bridge</text>
+          <text class="sm" x="520" y="130" text-anchor="middle" style="fill:var(--cinnabar)">orthogonal · not L8 · 正交层</text>
+          <g transform="translate(436,142)"><rect class="bi" width="168" height="30" rx="6"/><text class="bit" x="10" y="19">Disease context <tspan class="sm">疾病情境 ·1</tspan></text></g>
+          <g transform="translate(436,178)"><rect class="bi" width="168" height="30" rx="6"/><text class="bit" x="10" y="19">Population context <tspan class="sm">人群 ·3</tspan></text></g>
+          <g transform="translate(436,214)"><rect class="bi" width="168" height="30" rx="6"/><text class="bit" x="10" y="19">Fragility / functional <tspan class="sm">表型 ·4</tspan></text></g>
+          <g transform="translate(436,250)"><rect class="bi" width="168" height="30" rx="6"/><text class="bit" x="10" y="19">Assessment <tspan class="sm">评估 ·4</tspan></text></g>
+          <text class="sm" x="520" y="335" text-anchor="middle">phenotypically_corresponds_to</text>
+          <text class="sm" x="520" y="349" text-anchor="middle">population_context_corresponds_to</text>
+          <text class="sm" x="520" y="363" text-anchor="middle">maps_to_clinical_finding</text>
+          <text class="sm" x="520" y="385" text-anchor="middle" style="fill:var(--cinnabar)">TEC-weighted · G-gated · never “is-a”</text>
+        </svg>
+      </div>
+      <ul class="arch-legend reveal">
+        <li><span class="k">L1–L2</span><span><b><span class="en">Disease & syndrome</span><span class="zh">病名与证型</span></b><span class="en">11 classical bone-disease names (骨痿, 骨枯, 骨痹 …) and 7 syndrome patterns such as liver–kidney yin deficiency and kidney yang deficiency.</span><span class="zh">11 个古籍骨病病名（骨痿、骨枯、骨痹……）与 7 个证型，如肝肾阴虚证、肾阳虚证。</span></span></li>
+        <li><span class="k">L3–L4</span><span><b><span class="en">Phenotype & population</span><span class="zh">表型与人群</span></b><span class="en">8 observable phenotypes (functional limitation, bone pain, kyphosis, height loss …) and 4 population contexts (elderly, perimenopause, pregnancy/lactation, emotional disturbance).</span><span class="zh">8 个可观察表型（活动受限、骨痛、驼背、身高变矮……）与 4 类人群情境（老年后、围绝经期、胎产哺乳、情志异常）。</span></span></li>
+        <li><span class="k">L5–L6</span><span><b><span class="en">Therapy & materia medica</span><span class="zh">治法与方药</span></b><span class="en">4 therapeutic methods, 508 formulas, 369 herbs in 13 functional categories, 161 acupoints on 15 meridians, and 48 external agents.</span><span class="zh">4 种治法、508 首方剂、13 类功效下的 369 味中药、15 条经络上的 161 个腧穴，以及 48 种外治材料。</span></span></li>
+        <li><span class="k">L7</span><span><b><span class="en">Outcome</span><span class="zh">转归</span></b><span class="en">Recorded outcomes: cured, improved, unhealed, died.</span><span class="zh">记载的转归：痊愈、好转、未愈、死亡。</span></span></li>
+        <li><span class="k">M</span><span><b><span class="en">Modern clinical anchors</span><span class="zh">现代临床锚点</span></b><span class="en">12 anchors in 4 categories. Assessment anchors (DXA/BMD, T-score, fracture-risk and vertebral-fracture assessment) are reachable only from within the modern layer via guideline-derived structural edges.</span><span class="zh">4 类共 12 个锚点。评估类锚点（DXA/BMD、T 值、骨折风险评估、椎体骨折评估）仅能通过指南来源的结构性关系从现代层内部到达。</span></span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== COMPOSITION ===================== -->
+<section class="section" id="composition">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="en">Composition</span><span class="zh">图谱构成</span></div>
+      <h2><span class="en">What the graph is made of</span><span class="zh">图谱由什么构成</span></h2>
+      <p class="lead"><span class="en">Charts below are computed directly from <code>kg_nodes.csv</code> and <code>kg_edges.csv</code> shipped with this site.</span><span class="zh">以下图表直接由本站附带的 <code>kg_nodes.csv</code> 与 <code>kg_edges.csv</code>计算生成。</span></p>
+    </div>
+    <div class="grid-2">
+      <div class="chart-card reveal">
+        <h3><span class="en">Node types</span><span class="zh">节点类型分布</span></h3>
+        <div class="cap"><span class="en">1,690 nodes across 15 entity types</span><span class="zh">15 类实体，共 1,690 个节点</span></div>
+        <div class="bars" id="chart-node-types"></div>
+      </div>
+      <div class="chart-card reveal">
+        <h3><span class="en">Relation types</span><span class="zh">关系类型分布</span></h3>
+        <div class="cap"><span class="en">Top 12 of 26 relation types, 10,434 edges</span><span class="zh">26 种关系中的前 12 种，共 10,434 条边</span></div>
+        <div class="bars" id="chart-relations"></div>
+      </div>
+      <div class="chart-card reveal">
+        <h3><span class="en">Textual corpus across dynasties</span><span class="zh">古籍的朝代分布</span></h3>
+        <div class="cap"><span class="en">516 classical texts by dynasty of composition, c. 150 – 2020 CE</span><span class="zh">516 部古籍按成书朝代统计，约公元 150 – 2020 年</span></div>
+        <div id="chart-dynasty"></div>
+      </div>
+      <div class="chart-card reveal">
+        <h3><span class="en">TEC distribution</span><span class="zh">TEC 分布</span></h3>
+        <div class="cap"><span class="en">9,201 evidence-class edges · mean 0.126 · median 0.084 · range 0.017 – 0.899</span><span class="zh">9,201 条证据类边 · 均值 0.126 · 中位数 0.084 · 范围 0.017 – 0.899</span></div>
+        <div id="chart-tec"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== METHODS ===================== -->
+<section class="section" id="methods">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="en">Methods</span><span class="zh">方法</span></div>
+      <h2><span class="en">How evidence becomes weight</span><span class="zh">证据如何转化为权重</span></h2>
+      <p class="lead"><span class="en">Three boxed definitions, exactly as used to build the released graph. Full text in <a href="docs/methods_results_draft.md">docs/methods_results_draft.md</a>.</span><span class="zh">以下三个定义框与发布图谱的构建过程完全一致。完整文本见 <a href="docs/methods_results_draft.md">docs/methods_results_draft.md</a>。</span></p>
+    </div>
+
+    <div class="grid-2">
+      <div class="reveal">
+        <h3 style="font-size:1.25rem;margin-bottom:.4rem"><span class="en">§2.9 Triple Evidence Confidence (TEC)</span><span class="zh">§2.9 三元组证据置信度（TEC）</span></h3>
+        <p style="color:var(--ink-2)"><span class="en">For a triple <em>t</em> = (subject, relation, object), TEC combines the mean upstream relevance of its supporting passages with three corroboration signals: recurrence, independent books, and dynastic spread.</span><span class="zh">对于三元组 <em>t</em> =（主语，关系，宾语），TEC 将支持条目的平均相关度与三种佐证信号结合：复现次数、独立书目数、朝代离散度。</span></p>
+        <div class="box">
+          <div class="box-title"><span class="en">Box 1 · Triple Evidence Confidence</span><span class="zh">定义框 1 · 三元组证据置信度</span></div>
+          <div class="formula">
+            S<sub>t</sub> = log(1+n<sub>t</sub>) / log(1+n<sub>max</sub>)<br>
+            B<sub>t</sub> = log(1+b<sub>t</sub>) / log(1+b<sub>max</sub>)<br>
+            D<sub>t</sub> = H(dynasty distribution of t) / log(K),  K = 10<br>
+            <b>TEC<sub>t</sub> = R̄<sub>t</sub> · (α·S<sub>t</sub> + β·B<sub>t</sub> + γ·D<sub>t</sub>)</b>,  α = β = γ = 1/3
+          </div>
+          <dl class="def">
+            <div><dt>n<sub>t</sub></dt> <dd><span class="en">supporting passages (n<sub>max</sub> = 400)</span><span class="zh">支持条目数（n<sub>max</sub> = 400）</span></dd></div>
+            <div><dt>b<sub>t</sub></dt> <dd><span class="en">distinct books (b<sub>max</sub> = 152)</span><span class="zh">独立书目数（b<sub>max</sub> = 152）</span></dd></div>
+            <div><dt>R̄<sub>t</sub></dt> <dd><span class="en">mean per-passage osteoporosis-relevance score ∈ [0,1]</span><span class="zh">条目级骨质疏松相关度均值 ∈ [0,1]</span></dd></div>
+            <div><dt>D<sub>t</sub></dt> <dd><span class="en">normalised Shannon entropy of dynasty labels</span><span class="zh">朝代标签的归一化香农熵</span></dd></div>
+          </dl>
+        </div>
+        <p style="color:var(--ink-2);font-size:.94rem"><span class="en">Edges are partitioned into <b>evidence</b> (9,201; TEC computed), <b>structural</b> (1,207; curated facts, TEC undefined) and <b>bridge-score</b> (26; weighted by CMS). Evidence edges are tiered E1–E4 by breadth of attestation.</span><span class="zh">边划分为<b>证据类</b>（9,201 条，计算 TEC）、<b>结构类</b>（1,207 条，策展事实，TEC 未定义）与<b>桥接评分类</b>（26 条，以 CMS 加权）。证据类边依据佐证广度分为 E1–E4 四级。</span></p>
+      </div>
+
+      <div class="reveal">
+        <h3 style="font-size:1.25rem;margin-bottom:.4rem"><span class="en">§2.11 Cross-era phenotype bridging (ECPB)</span><span class="zh">§2.11 跨时代表型桥接（ECPB）</span></h3>
+        <p style="color:var(--ink-2)"><span class="en">Each of 18 classical concepts gets a TEC-weighted phenotype profile <b>x<sub>c</sub></b> over 8 phenotypes and a population profile <b>u<sub>c</sub></b> over 4 contexts. Each modern anchor gets clinical-judgment vectors <b>y<sub>m</sub></b>, <b>u<sub>m</sub></b> on a {0, 0.5, 1} scale.</span><span class="zh">18 个古典概念各自获得 TEC 加权的 8 维表型谱 <b>x<sub>c</sub></b> 与 4 维人群谱 <b>u<sub>c</sub></b>；每个现代锚点则依据临床判断给定 {0, 0.5, 1} 尺度的向量 <b>y<sub>m</sub></b>、<b>u<sub>m</sub></b>。</span></p>
+        <div class="box">
+          <div class="box-title"><span class="en">Box 2 · PHS, PCS and the Cross-Era Mapping Score</span><span class="zh">定义框 2 · PHS、PCS 与跨时代映射分数</span></div>
+          <div class="formula">
+            PHS(c,m) = Σ<sub>k</sub> ω<sub>k</sub>·min(x<sub>ck</sub>, y<sub>mk</sub>) / Σ<sub>k</sub> ω<sub>k</sub>·max(x<sub>ck</sub>, y<sub>mk</sub>)<br>
+            PCS(c,m) = cosine(u<sub>c</sub>, u<sub>m</sub>)<br>
+            E<sub>c</sub> = mean TEC over evidence edges touching c<br>
+            <b>CMS(c,m) = E<sub>c</sub> · (λ·PHS + (1−λ)·PCS)</b>,  λ = 0.5
+          </div>
+        </div>
+        <div class="box" style="border-left-color:var(--gold)">
+          <div class="box-title" style="color:var(--gold)"><span class="en">Box 3 · Diagnostic Boundary Constraint</span><span class="zh">定义框 3 · 诊断边界约束</span></div>
+          <div class="formula">
+            G(c,m) = 0  <span style="color:var(--ink-3)">if m = Osteoporosis read diagnostically</span><br>
+            G(c,m) = 1  <span style="color:var(--ink-3)">for phenotype / population correspondence</span><br>
+            <b>CMS<sub>exact</sub>(c,m) = G(c,m) · CMS(c,m)</b>
+          </div>
+          <p class="def" style="margin-bottom:0"><span class="en">All 21 disease/syndrome → Osteoporosis edges carry CMS<sub>exact</sub> = 0 by construction.</span><span class="zh">全部 21 条病名/证型 → 骨质疏松症的边，其 CMS<sub>exact</sub> 依构造恒为 0。</span></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== RESULTS ===================== -->
+<section class="section" id="results">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="en">Results</span><span class="zh">结果</span></div>
+      <h2><span class="en">Quality, robustness, and what remains pending</span><span class="zh">质量、稳健性与待完成项</span></h2>
+      <p class="lead"><span class="en">Metrics reproduced from <code>kg_quality_table.csv</code>. Items marked pending are stated as such, not hidden.</span><span class="zh">指标复现自 <code>kg_quality_table.csv</code>。标记为「待完成」的项目如实呈现，不作隐藏。</span></p>
+    </div>
+
+    <div class="grid-2" style="margin-bottom:1.4rem">
+      <div class="chart-card reveal">
+        <h3><span class="en">Evidence tiers of the 9,201 evidence edges</span><span class="zh">9,201 条证据边的证据等级</span></h3>
+        <div class="cap"><span class="en">E3 + E4 (34.5%) form the cross-corroborated backbone; single-source relation rate is 65.5%.</span><span class="zh">E3 + E4（34.5%）构成跨书佐证的骨干；单源关系率为 65.5%。</span></div>
+        <div id="chart-tiers"></div>
+        <h3 style="margin-top:1.6rem"><span class="en">Edge classes</span><span class="zh">边的类别</span></h3>
+        <div class="cap"><span class="en">TEC is computed for evidence edges only; structural edges are curated facts; bridge-score edges are weighted by CMS.</span><span class="zh">仅证据类边计算 TEC；结构类边为策展事实；桥接评分类边以 CMS 加权。</span></div>
+        <div id="chart-classes"></div>
+      </div>
+      <div class="chart-card reveal">
+        <h3><span class="en">Most central nodes</span><span class="zh">中心性最高的节点</span></h3>
+        <div class="cap"><span class="en">Betweenness centrality; Top-10 PageRank set recovered at Jaccard 0.931 ± 0.046 over 300 bootstrap resamples.</span><span class="zh">介数中心性；300 次自助重采样中 Top-10 PageRank 集合的 Jaccard 重合度为 0.931 ± 0.046。</span></div>
+        <ol class="rank" id="rank-central"></ol>
+      </div>
+    </div>
+
+    <div class="table-wrap reveal">
+      <table>
+        <thead><tr><th><span class="en">Metric</span><span class="zh">指标</span></th><th><span class="en">Value</span><span class="zh">数值</span></th><th><span class="en">Notes</span><span class="zh">说明</span></th></tr></thead>
+        <tbody>
+          <tr class="group-row"><td colspan="3"><span class="en">GRAPH SIZE</span><span class="zh">图谱规模</span></td></tr>
+          <tr><td><span class="en">Total nodes / edges</span><span class="zh">节点 / 边总数</span></td><td class="v">1,690 / 10,434</td><td class="note"><span class="en">15 node types, 26 relation types</span><span class="zh">15 类节点，26 种关系</span></td></tr>
+          <tr><td><span class="en">Modern clinical anchors</span><span class="zh">现代临床锚点</span></td><td class="v">12</td><td class="note"><span class="en">3 relabeled + 9 new</span><span class="zh">3 个重标注 + 9 个新增</span></td></tr>
+          <tr><td><span class="en">Edges touching the bridge layer</span><span class="zh">与桥接层相连的边</span></td><td class="v">70</td><td class="note"><span class="en">37 population-context, 21 phenotype, 5 clinical-finding, 7 within-layer structural</span><span class="zh">37 条人群情境、21 条表型、5 条临床发现、7 条层内结构性</span></td></tr>
+          <tr class="group-row"><td colspan="3"><span class="en">EVIDENCE WEIGHTING</span><span class="zh">证据加权</span></td></tr>
+          <tr><td><span class="en">Evidence / structural / bridge-score edges</span><span class="zh">证据类 / 结构类 / 桥接评分类边</span></td><td class="v">9,201 (88.2%) / 1,207 (11.6%) / 26 (0.2%)</td><td class="note"><span class="en">TEC computed for evidence class only</span><span class="zh">仅证据类计算 TEC</span></td></tr>
+          <tr><td><span class="en">TEC mean / median</span><span class="zh">TEC 均值 / 中位数</span></td><td class="v">0.126 / 0.084</td><td class="note"><span class="en">range 0.017 – 0.899</span><span class="zh">范围 0.017 – 0.899</span></td></tr>
+          <tr><td><span class="en">Weight sensitivity (±20% α/β/γ)</span><span class="zh">权重敏感性（±20% α/β/γ）</span></td><td class="v">ρ ≥ 0.9981</td><td class="note"><span class="en">4 perturbations tested</span><span class="zh">测试 4 组扰动</span></td></tr>
+          <tr><td><span class="en">Evidence tiers E1 / E2 / E3 / E4</span><span class="zh">证据等级 E1 / E2 / E3 / E4</span></td><td class="v">52.0% / 13.5% / 6.9% / 27.5%</td><td class="note"><span class="en">E4 = multi-book, multi-dynasty backbone</span><span class="zh">E4 = 多书多朝代骨干</span></td></tr>
+          <tr class="group-row"><td colspan="3"><span class="en">KG QUALITY</span><span class="zh">图谱质量</span></td></tr>
+          <tr><td><span class="en">Provenance completeness (passage-level)</span><span class="zh">溯源完整性（条目级）</span></td><td class="v">88.2%</td><td class="note">9,201 / 10,434 <span class="pill ok">✓</span></td></tr>
+          <tr><td><span class="en">Schema validity</span><span class="zh">模式有效性</span></td><td class="v">100.0%</td><td class="note"><span class="en">0 dangling edges</span><span class="zh">0 条悬空边</span> <span class="pill ok">✓</span></td></tr>
+          <tr><td><span class="en">Single-source relation rate</span><span class="zh">单源关系率</span></td><td class="v">65.5%</td><td class="note"><span class="en">evidence edges attested by exactly one book</span><span class="zh">仅由一部书佐证的证据边</span></td></tr>
+          <tr><td><span class="en">Bootstrap Top-10 / Top-20 PageRank stability (B = 300)</span><span class="zh">自助法 Top-10 / Top-20 PageRank 稳定性（B = 300）</span></td><td class="v">0.931 ± 0.046 / 0.992 ± 0.019</td><td class="note"><span class="en">mean Jaccard overlap</span><span class="zh">平均 Jaccard 重合度</span></td></tr>
+          <tr><td><span class="en">Bootstrap rank correlation</span><span class="zh">自助法排序相关</span></td><td class="v">ρ = 0.935 ± 0.013</td><td class="note"><span class="en">mean Spearman vs original</span><span class="zh">与原始排序的平均 Spearman 相关</span></td></tr>
+          <tr class="group-row"><td colspan="3"><span class="en">CROSS-ERA BRIDGING</span><span class="zh">跨时代桥接</span></td></tr>
+          <tr><td><span class="en">Diagnostic Boundary Constraint compliance</span><span class="zh">诊断边界约束合规率</span></td><td class="v">100%</td><td class="note"><span class="en">all disease/syndrome → Osteoporosis gated to CMS<sub>exact</sub> = 0</span><span class="zh">全部病名/证型 → 骨质疏松症门控为 CMS<sub>exact</sub> = 0</span> <span class="pill ok">✓</span></td></tr>
+          <tr><td><span class="en">Highest pre-gate CMS</span><span class="zh">门控前最高 CMS</span></td><td class="v">脾胃虚弱证 · 0.095</td><td class="note"><span class="en">Osteoporosis anchor</span><span class="zh">骨质疏松症锚点</span></td></tr>
+          <tr><td><span class="en">y<sub>m</sub> / u<sub>m</sub> anchor vectors</span><span class="zh">y<sub>m</sub> / u<sub>m</sub> 锚点向量</span></td><td class="v"><span class="pill warn"><span class="en">clinical judgment</span><span class="zh">临床判断</span></span></td><td class="note"><span class="en">not learned from data; pending expert review</span><span class="zh">非数据学习所得；待专家审阅</span></td></tr>
+          <tr class="group-row"><td colspan="3"><span class="en">EXPERT VALIDATION</span><span class="zh">专家验证</span></td></tr>
+          <tr><td><span class="en">Entity / relation precision, recall, F1</span><span class="zh">实体 / 关系的精确率、召回率、F1</span></td><td class="v"><span class="pill pending"><span class="en">pending</span><span class="zh">待完成</span></span></td><td class="note"><span class="en">requires a double-annotated gold set</span><span class="zh">需要双人标注的金标准集</span></td></tr>
+          <tr><td><span class="en">Bridge-layer Cohen's κ</span><span class="zh">桥接层 Cohen's κ</span></td><td class="v"><span class="pill pending"><span class="en">pending</span><span class="zh">待完成</span></span></td><td class="note"><span class="en">expert review of the 26 bridge relations recommended</span><span class="zh">建议对 26 条桥接关系进行专家复核</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid-3" style="margin-top:1.4rem">
+      <div class="chart-card reveal"><h3><span class="en">Most connected herbs</span><span class="zh">连接最多的中药</span></h3><div class="cap"><span class="en">by degree</span><span class="zh">按度数</span></div><ol class="rank" id="rank-herbs"></ol></div>
+      <div class="chart-card reveal"><h3><span class="en">Most connected formulas</span><span class="zh">连接最多的方剂</span></h3><div class="cap"><span class="en">by degree</span><span class="zh">按度数</span></div><ol class="rank" id="rank-formulas"></ol></div>
+      <div class="chart-card reveal"><h3><span class="en">Most cited texts</span><span class="zh">引用最多的古籍</span></h3><div class="cap"><span class="en">by degree</span><span class="zh">按度数</span></div><ol class="rank" id="rank-books"></ol></div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== BRIDGE ===================== -->
+<section class="section" id="bridge">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="en">Cross-era bridge</span><span class="zh">跨时代桥接</span></div>
+      <h2><span class="en">Cross-Era Mapping Score: classical concept × modern anchor</span><span class="zh">跨时代映射分数：古典概念 × 现代锚点</span></h2>
+      <p class="lead"><span class="en">Hover a cell for PHS, PCS, E<sub>c</sub> and the gate value. Cells marked ◦ are gated to CMS<sub>exact</sub> = 0: the value shown is phenotype-level correspondence only, never a diagnosis.</span><span class="zh">悬停单元格可查看 PHS、PCS、E<sub>c</sub> 与门控值。标记 ◦ 的单元格已门控为 CMS<sub>exact</sub> = 0：所示数值仅为表型层面的对应，绝非诊断。</span></p>
+    </div>
+    <div class="chart-card reveal">
+      <div class="heat-wrap" id="heatmap"></div>
+      <div class="heat-scale"><span>0</span><span class="g"></span><span>0.095</span><span style="margin-left:1rem">◦ = <span class="en">Diagnostic Boundary Constraint applied (G = 0)</span><span class="zh">已施加诊断边界约束（G = 0）</span></span></div>
+    </div>
+
+    <figure class="figure reveal" style="margin:1.6rem 0 0">
+      <img src="assets/img/fig5_ecpb_evidence_bridge.png" alt="Figure 5: seven-layer ontology with orthogonal modern clinical bridge; TEC distribution by relation type; Cross-Era Mapping Score heatmap; bootstrap stability of central nodes" loading="lazy" width="3251" height="2883">
+      <figcaption>
+        <span class="en"><b>Figure 5 · Evidence bridge.</b> (A) Seven-layer classical ontology and the orthogonal modern clinical bridge. (B) TEC distribution by relation type across 9,201 evidence-class edges; chief-complaint and presents-as relations carry the strongest evidence. (C) Cross-Era Mapping Score for 18 classical concepts × 8 modern anchors, pre-gate. (D) Bootstrap stability of the Top-10 and Top-20 PageRank sets over 300 resamples.</span>
+        <span class="zh"><b>图 5 · 证据桥接。</b>（A）七层古典本体与正交的现代临床桥接层。（B）9,201 条证据类边按关系类型的 TEC 分布；主要症状与表现为两类关系证据最强。（C）18 个古典概念 × 8 个现代锚点的门控前跨时代映射分数。（D）300 次自助重采样下 Top-10 与 Top-20 PageRank 集合的稳定性。</span>
+      </figcaption>
+    </figure>
+  </div>
+</section>
+
+<!-- ===================== EXPLORER TEASER ===================== -->
+<section class="section" id="explore">
+  <div class="container">
+    <div class="teaser reveal">
+      <div>
+        <div class="eyebrow" style="color:#f3c6bd"><span class="en">Interactive</span><span class="zh">交互式</span></div>
+        <h3><span class="en">Walk the graph yourself</span><span class="zh">亲自漫游图谱</span></h3>
+        <p><span class="en">A force-directed rendering of the full graph. Click any node to highlight its two-hop neighbourhood; drag to rearrange; scroll to zoom. The companion node browser lets you search all 1,690 nodes and inspect every edge with its TEC score and evidence tier.</span><span class="zh">全图的力导向可视化。点击任意节点可高亮其两跳邻域；拖拽可重排；滚轮缩放。配套的节点检索页可搜索全部 1,690 个节点，并逐条查看关系边的 TEC 评分与证据等级。</span></p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="explorer.html"><span class="en">Open the graph explorer</span><span class="zh">打开图谱浏览器</span></a>
+          <a class="btn btn-secondary" href="browse.html"><span class="en">Search nodes & edges</span><span class="zh">检索节点与关系</span></a>
+        </div>
+      </div>
+      <a class="teaser-shot" href="explorer.html" aria-label="Open explorer">
+        <svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+          <g stroke="rgba(255,255,255,.35)" stroke-width="1">
+            <line x1="200" y1="150" x2="90" y2="80"/><line x1="200" y1="150" x2="310" y2="70"/><line x1="200" y1="150" x2="330" y2="200"/><line x1="200" y1="150" x2="120" y2="230"/><line x1="200" y1="150" x2="250" y2="250"/>
+            <line x1="90" y1="80" x2="40" y2="140"/><line x1="90" y1="80" x2="150" y2="30"/><line x1="310" y1="70" x2="360" y2="30"/><line x1="330" y1="200" x2="370" y2="260"/><line x1="120" y1="230" x2="60" y2="270"/><line x1="250" y1="250" x2="300" y2="280"/><line x1="310" y1="70" x2="330" y2="200"/><line x1="90" y1="80" x2="120" y2="230"/>
+          </g>
+          <g fill="#f0c36b"><circle cx="40" cy="140" r="4"/><circle cx="150" cy="30" r="4"/><circle cx="360" cy="30" r="4"/><circle cx="370" cy="260" r="4"/><circle cx="60" cy="270" r="4"/><circle cx="300" cy="280" r="4"/></g>
+          <g fill="#9fc0ea"><circle cx="90" cy="80" r="10"/><circle cx="310" cy="70" r="10"/><circle cx="330" cy="200" r="10"/><circle cx="120" cy="230" r="10"/><circle cx="250" cy="250" r="10"/></g>
+          <circle cx="200" cy="150" r="20" fill="#e0705f"/>
+          <text x="200" y="156" text-anchor="middle" font-size="14" fill="#fff" font-family="Noto Serif SC, serif">骨痿</text>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== DATA ===================== -->
+<section class="section" id="data">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="en">Data & downloads</span><span class="zh">数据与下载</span></div>
+      <h2><span class="en">One graph, four serialisations</span><span class="zh">一个图谱，四种序列化格式</span></h2>
+      <p class="lead"><span class="en">All files live in the <code>data/</code> folder of the repository. Node identifiers follow <code>type::name</code>; edge rows carry TEC components, evidence tier, edge class, and bridge fields.</span><span class="zh">全部文件位于仓库的 <code>data/</code> 目录。节点标识符形如 <code>类型::名称</code>；边记录包含 TEC 各分量、证据等级、边类别与桥接字段。</span></p>
+    </div>
+    <div class="files reveal">
+      <a class="file csv" href="data/kg_nodes.csv" data-file="kg_nodes.csv" download><span class="ext">CSV</span><span><span class="fn">kg_nodes.csv</span><span class="fd"><span class="en">1,690 nodes with type, degree, betweenness, community, dynasty, anchor category</span><span class="zh">1,690 个节点：类型、度、介数、社区、朝代、锚点类别</span></span></span><span class="sz"></span></a>
+      <a class="file csv" href="data/kg_edges.csv" data-file="kg_edges.csv" download><span class="ext">CSV</span><span><span class="fn">kg_edges.csv</span><span class="fd"><span class="en">10,434 edges with n<sub>t</sub>, b<sub>t</sub>, R̄<sub>t</sub>, D<sub>t</sub>, S<sub>t</sub>, B<sub>t</sub>, TEC<sub>t</sub>, tier, class, CMS fields</span><span class="zh">10,434 条边：n<sub>t</sub>、b<sub>t</sub>、R̄<sub>t</sub>、D<sub>t</sub>、S<sub>t</sub>、B<sub>t</sub>、TEC<sub>t</sub>、等级、类别、CMS 字段</span></span></span><span class="sz"></span></a>
+      <a class="file ttl" href="data/osteoporosis_tcm_kg_v2.ttl" data-file="osteoporosis_tcm_kg_v2.ttl" download><span class="ext">TTL</span><span><span class="fn">osteoporosis_tcm_kg_v2.ttl</span><span class="fd"><span class="en">RDF/OWL Turtle with reified statements carrying TEC and edge class</span><span class="zh">RDF/OWL Turtle，具化语句携带 TEC 与边类别</span></span></span><span class="sz"></span></a>
+      <a class="file graphml" href="data/osteoporosis_tcm_kg_v2.graphml" data-file="osteoporosis_tcm_kg_v2.graphml" download><span class="ext">GML</span><span><span class="fn">osteoporosis_tcm_kg_v2.graphml</span><span class="fd"><span class="en">GraphML for Gephi, Cytoscape, NetworkX, igraph</span><span class="zh">GraphML，可用于 Gephi、Cytoscape、NetworkX、igraph</span></span></span><span class="sz"></span></a>
+      <a class="file cypher" href="data/neo4j_import_v2.cypher" data-file="neo4j_import_v2.cypher" download><span class="ext">CQL</span><span><span class="fn">neo4j_import_v2.cypher</span><span class="fd"><span class="en">Neo4j import script with constraints: <code>cat … | cypher-shell</code></span><span class="zh">Neo4j 导入脚本（含约束）：<code>cat … | cypher-shell</code></span></span></span><span class="sz"></span></a>
+      <a class="file csv" href="data/cms_classical_to_modern_anchor.csv" data-file="cms_classical_to_modern_anchor.csv" download><span class="ext">CSV</span><span><span class="fn">cms_classical_to_modern_anchor.csv</span><span class="fd"><span class="en">216 concept × anchor rows: PHS, PCS, E<sub>c</sub>, CMS, G, CMS<sub>exact</sub></span><span class="zh">216 行概念 × 锚点：PHS、PCS、E<sub>c</sub>、CMS、G、CMS<sub>exact</sub></span></span></span><span class="sz"></span></a>
+      <a class="file csv" href="data/modern_anchor_phenotype_vectors_y_m.csv" data-file="modern_anchor_phenotype_vectors_y_m.csv" download><span class="ext">CSV</span><span><span class="fn">modern_anchor_phenotype_vectors_y_m.csv</span><span class="fd"><span class="en">y<sub>m</sub>: 12 anchors × 8 phenotypes, clinical-judgment input</span><span class="zh">y<sub>m</sub>：12 个锚点 × 8 个表型，临床判断输入</span></span></span><span class="sz"></span></a>
+      <a class="file csv" href="data/modern_anchor_population_vectors_u_m.csv" data-file="modern_anchor_population_vectors_u_m.csv" download><span class="ext">CSV</span><span><span class="fn">modern_anchor_population_vectors_u_m.csv</span><span class="fd"><span class="en">u<sub>m</sub>: 12 anchors × 4 population contexts</span><span class="zh">u<sub>m</sub>：12 个锚点 × 4 类人群情境</span></span></span><span class="sz"></span></a>
+      <a class="file csv" href="data/kg_quality_table.csv" data-file="kg_quality_table.csv" download><span class="ext">CSV</span><span><span class="fn">kg_quality_table.csv</span><span class="fd"><span class="en">All quality and robustness metrics shown on this page</span><span class="zh">本页展示的全部质量与稳健性指标</span></span></span><span class="sz"></span></a>
+      <a class="file html" href="data/kg_interactive_v2.html" data-file="kg_interactive_v2.html"><span class="ext">HTML</span><span><span class="fn">kg_interactive_v2.html</span><span class="fd"><span class="en">Self-contained interactive network (vis-network); also embedded in the Explorer</span><span class="zh">自包含的交互式网络（vis-network）；亦嵌入于图谱浏览器</span></span></span><span class="sz"></span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== LIMITATIONS ===================== -->
+<section class="section" id="limitations">
+  <div class="container">
+    <div class="grid-2">
+      <div class="callout warn reveal">
+        <h3><span class="en">Limitation, stated plainly</span><span class="zh">局限性，如实说明</span></h3>
+        <p><span class="en">Entity/relation precision, recall, F1 and a bridge-layer Cohen's κ were planned but could not be computed in the current analysis session. The candidate corpus file examined for this purpose is rule-based keyword-matching output, not a double-annotated expert gold set. Reporting these metrics requires either the manuscript's 701-entry double-annotated gold set (κ ≥ 0.75 pre-registered) or a fresh 100% expert review of the 26 bridge-layer relations.</span>
+        <span class="zh">实体/关系的精确率、召回率、F1 以及桥接层的 Cohen's κ 已列入计划，但在当前分析阶段尚无法计算。为此检查的候选语料文件是基于规则的关键词匹配输出，而非双人标注的专家金标准集。报告这些指标需要论文自身的 701 条双人标注金标准集（预注册 κ ≥ 0.75），或对 26 条桥接层关系进行 100% 的专家复核。</span></p>
+      </div>
+      <div class="callout reveal">
+        <h3><span class="en">How to read the bridge</span><span class="zh">如何阅读桥接层</span></h3>
+        <ul>
+          <li><span class="en">Classical disease names are <b>not</b> retrospective diagnoses of osteoporosis.</span><span class="zh">古籍病名<b>不是</b>骨质疏松症的回溯性诊断。</span></li>
+          <li><span class="en">CMS expresses phenotype and population-context similarity, scaled by evidence strength E<sub>c</sub>.</span><span class="zh">CMS 表达的是表型与人群情境的相似度，并按证据强度 E<sub>c</sub> 缩放。</span></li>
+          <li><span class="en">The anchor vectors y<sub>m</sub>, u<sub>m</sub> are a modelling choice awaiting domain-expert review; treat specific CMS values accordingly.</span><span class="zh">锚点向量 y<sub>m</sub>、u<sub>m</sub> 是等待领域专家审阅的建模选择；具体 CMS 数值应据此谨慎对待。</span></li>
+          <li><span class="en">Assessment anchors (DXA/BMD, T-score) are reachable only through guideline-derived structural edges within the modern layer.</span><span class="zh">评估类锚点（DXA/BMD、T 值）仅能通过现代层内部的指南来源结构性关系到达。</span></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== CITE ===================== -->
+<section class="section" id="cite">
+  <div class="container">
+    <div class="section-head reveal">
+      <div class="eyebrow"><span class="en">Citation</span><span class="zh">引用</span></div>
+      <h2><span class="en">Cite this resource</span><span class="zh">引用本资源</span></h2>
+      <p class="lead"><span class="en">A manuscript describing the graph is in preparation. Until then, please cite the repository.</span><span class="zh">描述本图谱的论文正在撰写中。在此之前，请引用本仓库。</span></p>
+    </div>
+    <pre class="cite reveal">@misc{tcm_bone_kg_2026,
+  title        = {TCM-Bone-KG: an evidence-weighted knowledge graph of osteoporosis-related
+                  bone disorders in classical Chinese medicine, with a cross-era phenotype bridge},
+  year         = {2026},
+  howpublished = {\url{https://github.com/psknlr/TCM-Bone-KG}},
+  note         = {Version 2. 1,690 nodes, 10,434 edges, 516 classical texts.}
+}</pre>
+  </div>
+</section>
+
+</main>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a class="brand" href="index.html"><span class="brand-mark" aria-hidden="true">骨</span><span>TCM-Bone-KG<small><span class="en">Knowledge Graph</span><span class="zh">中医骨病知识图谱</span></small></span></a>
+        <p style="color:var(--ink-3);font-size:.88rem;margin-top:1rem;max-width:400px"><span class="en">An evidence-weighted knowledge graph of bone disorders in classical Chinese medicine, bridged to modern clinical anchors under a formal diagnostic boundary.</span><span class="zh">中医古籍骨病的证据加权知识图谱，在形式化诊断边界之下桥接至现代临床锚点。</span></p>
+      </div>
+      <div>
+        <h4><span class="en">Site</span><span class="zh">站点</span></h4>
+        <ul>
+          <li><a href="#overview"><span class="en">Overview</span><span class="zh">概览</span></a></li>
+          <li><a href="#methods"><span class="en">Methods</span><span class="zh">方法</span></a></li>
+          <li><a href="#results"><span class="en">Results</span><span class="zh">结果</span></a></li>
+          <li><a href="explorer.html"><span class="en">Graph explorer</span><span class="zh">图谱浏览器</span></a></li>
+          <li><a href="browse.html"><span class="en">Node browser</span><span class="zh">节点检索</span></a></li>
+        </ul>
+      </div>
+      <div>
+        <h4><span class="en">Resources</span><span class="zh">资源</span></h4>
+        <ul>
+          <li><a href="https://github.com/psknlr/TCM-Bone-KG">GitHub · psknlr/TCM-Bone-KG</a></li>
+          <li><a href="docs/methods_results_draft.md"><span class="en">Methods & results draft</span><span class="zh">方法与结果草稿</span></a></li>
+          <li><a href="data/kg_quality_table.csv"><span class="en">Quality table (CSV)</span><span class="zh">质量指标表（CSV）</span></a></li>
+          <li><a href="#cite"><span class="en">How to cite</span><span class="zh">引用方式</span></a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="signature">
+      <span>© 2026 TCM-Bone-KG · <span class="en">Data released for research use.</span><span class="zh">数据供研究使用。</span></span>
+      <span class="designer">
+        <span class="seal" aria-hidden="true">医哲</span>
+        <span><b><span class="en">Designed by</span><span class="zh">网站设计</span> · Institute of Medical Philosophy &amp; Future AI</b><span><span class="en">Web design &amp; visual identity</span><span class="zh">医学哲学与未来人工智能研究所 · 网页与视觉设计</span></span></span>
+      </span>
+    </div>
+  </div>
+</footer>
+
+<button type="button" class="btn btn-secondary to-top" aria-label="Back to top">↑</button>
+
+<script src="assets/js/kg-data.js"></script>
+<script src="assets/js/site.js"></script>
+</body>
+</html>
