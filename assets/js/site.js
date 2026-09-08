@@ -131,6 +131,8 @@
     '脾胃虚弱证': 'spleen–stomach weakness', '脾肾阳虚证': 'spleen–kidney yang deficiency', '血瘀气滞证': 'blood stasis + qi stagnation',
     '风寒湿痹证': 'wind-cold-damp bi', '中药内服': 'oral herbal medicine', '中药外用': 'topical herbal therapy', '针刺': 'acupuncture', '艾灸': 'moxibustion',
     '活动受限': 'functional limitation', '骨痛': 'bone pain', '腰背痛': 'low-back pain', '步态不稳': 'gait instability', '乏力': 'fatigue',
+    '痊愈': 'cured', '好转': 'improved', '未愈': 'unhealed', '死亡': 'died',
+    '老年后': 'elderly', '围绝经期': 'perimenopause', '胎产哺乳': 'pregnancy / lactation', '情志异常': 'emotional disturbance',
     '驼背': 'kyphosis', '身高变矮': 'height loss', '清': 'Qing dynasty'
   };
   const ANCHOR_ZH = {
